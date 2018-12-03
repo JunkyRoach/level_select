@@ -1,0 +1,9 @@
+images {
+  image: "/assets/background.png"
+}
+images {
+  image: "/assets/level_star.png"
+}
+margin: 0
+extrude_borders: 0
+inner_padding: 0

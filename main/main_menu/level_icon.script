@@ -1,0 +1,16 @@
+go.property('level_id', 1)
+
+function init(self)
+	
+	label.set_text("#level_num", self.level_id)	
+	
+end
+
+function on_message(self, message_id, message, sender)
+	
+	if message_id == hash('trigger_response') then
+
+		msg.post('main:/loader#loader', 'load_level', {level_id = self.level_id})
+	end
+end
+

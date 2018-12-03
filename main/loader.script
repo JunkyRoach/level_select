@@ -1,0 +1,55 @@
+
+function init(self)
+
+	msg.post('.', 'acquire_input_focus')
+	msg.post("#main_menu_proxy", "load")
+	next_proxy = ""
+	loaded_proxy = ""
+	previous_proxy =""
+
+end
+
+
+function on_message(self, message_id, message, sender)	
+
+	if message_id == hash('load_level') then
+		
+		next_proxy = "#level_"..message.level_id
+		unload_proxy()			
+	end
+
+	if message_id == hash('load_shop') then
+		next_proxy = "#shop_proxy"
+		unload_proxy()	
+	end
+	
+	if message_id == hash("load_main_menu") then
+		next_proxy = "#main_menu_proxy"
+		unload_proxy()			
+	end
+	
+
+	if message_id == hash('load_previous') then
+		next_proxy = previous_proxy
+		unload_proxy()
+	end
+
+	if message_id == hash("proxy_loaded") then
+		-- enable the collection and let the loader know		
+		msg.post(sender, "enable")
+		loaded_proxy = sender	
+	end
+
+	if message_id == hash("proxy_unloaded") then
+
+		msg.post(next_proxy, "load")
+	end
+end
+
+function unload_proxy()
+	previous_proxy = loaded_proxy
+	msg.post(loaded_proxy, "disable")
+	msg.post(loaded_proxy, "final")
+	msg.post(loaded_proxy, "unload")
+end
+

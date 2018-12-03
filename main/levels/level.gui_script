@@ -1,0 +1,19 @@
+function init(self)
+
+	msg.post('.', 'acquire_input_focus')
+	msg.post('main:/camera#camera', 'set_camera_bounds', {bounds = vmath.vector4(0,0,640,900)})
+	
+end
+
+function on_input(self, action_id, action)
+	-- Add input-handling code here
+	-- Remove this function if not needed
+	if action_id == hash('touch') and action.released then
+
+		if gui.pick_node(gui.get_node('back_btn'), action.x, action.y) then
+
+			msg.post('main:/loader#loader', 'load_previous')
+		end
+		
+	end
+end
